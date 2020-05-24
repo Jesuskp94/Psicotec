@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget
       title: "Comenzando",
       home: Scaffold(
         appBar: AppBar(
-          title: Text ("Bienvenido a primeraApp.flutter"),
+          title: Text ("Bienvenido a primeraApp"),
         ),
         body: Center(
           child: multiplicar(),
