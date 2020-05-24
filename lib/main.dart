@@ -14,10 +14,10 @@ class MyApp extends StatelessWidget
   {
 
     return MaterialApp(
-      title: "Comenzando",
+      title: "Proyecto ANT",
       home: Scaffold(
         appBar: AppBar(
-          title: Text ("Bienvenido a primeraApp"),
+          title: Text ("Estos son tus datos"),
         ),
         body: Center(
           child: multiplicar(),
@@ -41,10 +41,9 @@ class multiplicacionNumeros extends State<StatefulWidget>
 {
   @override
   Widget build(BuildContext context) {
-    final numero = 3;
-    DateTime minutos = DateTime.now() + Duration(hours: 4);
-    int multiplicacion = numero + minutos.millisecond;
-    return Text(multiplicacion.toString());
+    final nombre = "pepe"; //El nombre del usuario remoto de la BBDD
+    final apellido = "perez"; //Sus apellidos
+    return Text(nombre + " " + apellido);
     throw UnimplementedError();
   }
   
