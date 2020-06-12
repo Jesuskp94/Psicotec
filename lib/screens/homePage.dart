@@ -21,9 +21,6 @@ class _BasicAppBarSampleState extends State<HomePage> with WidgetsBindingObserve
   AppLifecycleState _lastLifecyleState;
 
 
-
-
-
   @override
   void initState() {
     super.initState();
