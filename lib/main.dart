@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.black12,
                             blurRadius: 5,
                           )
-                        ]
+                        ],
                       ),
                       child: TextField(
                         controller: controllerPass,
