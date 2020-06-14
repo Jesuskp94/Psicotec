@@ -40,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
       }
       else
       {
-          //TODO: crear pantalla que permita registrar las condiciones
+        Navigator.pushReplacementNamed(context, 'homeRight');
+        //TODO: crear pantalla que permita registrar las condiciones
       }
     }
     else
@@ -176,7 +177,10 @@ class _LoginPageState extends State<LoginPage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () async {
-          if(_rememberMe) { ShPreferences.setLogin(true); }
+          if(_rememberMe)
+          {
+            ShPreferences.setLogin(true);
+          }
           comprobarCredencialesInsertadas();
         },
         padding: EdgeInsets.all(15.0),

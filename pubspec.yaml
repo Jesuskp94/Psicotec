@@ -18,6 +18,8 @@ dependencies:
   intl: ^0.15.8
   charts_flutter: any
   hardware_buttons: ^1.0.0
+  background_fetch: '^0.5.1'
+  device_apps: ^1.0.9
 
 
 dev_dependencies:

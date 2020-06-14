@@ -15,6 +15,8 @@ import io.flutter.embedding.engine.plugins.shim.ShimPluginRegistry;
 public final class GeneratedPluginRegistrant {
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     ShimPluginRegistry shimPluginRegistry = new ShimPluginRegistry(flutterEngine);
+    flutterEngine.getPlugins().add(new com.transistorsoft.flutter.backgroundfetch.BackgroundFetchPlugin());
+      fr.g123k.deviceapps.DeviceAppsPlugin.registerWith(shimPluginRegistry.registrarFor("fr.g123k.deviceapps.DeviceAppsPlugin"));
       flutter.moum.hardware_buttons.HardwareButtonsPlugin.registerWith(shimPluginRegistry.registrarFor("flutter.moum.hardware_buttons.HardwareButtonsPlugin"));
     flutterEngine.getPlugins().add(new io.flutter.plugins.sharedpreferences.SharedPreferencesPlugin());
   }

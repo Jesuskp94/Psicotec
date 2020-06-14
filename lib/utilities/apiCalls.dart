@@ -1,16 +1,18 @@
 import 'package:PsicotecProyect/Pojos/Condition.dart';
 import 'package:PsicotecProyect/Pojos/Contract.dart';
+import 'package:PsicotecProyect/Pojos/Regedit.dart';
 import 'package:PsicotecProyect/Pojos/User.dart';
 import 'package:PsicotecProyect/utilities/shPreferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 final rutaLogin = "http://192.168.1.45/api/apiUsuario/login.php";
 final rutaContrato = "http://192.168.1.45/api/apiContrato/contrato.php";
 final rutaCondicion = "http://192.168.1.45/api/apiContrato/condiciones_contrato.php";
 final rutaRegistro = "http://192.168.1.45/api/apiContrato/condiciones_contrato.php";
+final rutaInsertarRegistro = "http://192.168.1.45/api/apiRegistros/insertarRegistro.php";
 
 
 ///Nos indica si el usuario y la contraseña introducidos son correctos
@@ -46,8 +48,6 @@ Future<User> solicitarUsuario(String email, String contrasenia) async
 }
 
 
-
-
 ///Nos indica si el usuario y la contraseña introducidos son correctos
 ///
 ///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización.
@@ -79,16 +79,15 @@ Future<Contract> solicitarContrato(String idUsuario) async
 }
 
 
-
-
 ///Nos indica si el usuario y la contraseña introducidos son correctos
 ///
 ///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización.
-Future<bool> solicitarCondiciones(String idContrato) async
+Future<bool> solicitarCondiciones(String id_contrato) async
 {
   final response = await http.post(rutaCondicion, body: {
-    "id_contrato": idContrato,
+    "id_contrato": id_contrato,
   });
+
   var dataConditions = json.decode(response.body);
 
   var error = dataConditions.toString().indexOf('mensaje')!=-1;
@@ -113,35 +112,61 @@ Future<bool> solicitarCondiciones(String idContrato) async
 }
 
 
-
 ///Nos indica si el usuario y la contraseña introducidos son correctos
 ///
 ///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización.
 Future<bool> solicitarRegistros(String id_usuario) async
 {
-  final response = await http.post(rutaCondicion, body: {
+  final response = await http.post(rutaRegistro, body: {
     "id_usuario": id_usuario,
   });
+
   var dataRegedeits = json.decode(response.body);
 
   var error = dataRegedeits.toString().indexOf('mensaje')!=-1;
 
   if (!error)
   {
-    //TODO: adquirir y guardar los registros de nuestro usuario al empezar la aplicacion
-    /*List<Condition> condiciones = new List(dataConditions.length);
+    List<Regedit> registros = new List(dataRegedeits.length);
 
-    for(int contador = 0; contador<dataConditions.length; contador++)
+    for(int contador = 0; contador<dataRegedeits.length; contador++)
     {
-      condiciones[contador] = Condition.fromJson(dataConditions[contador]);
+      registros[contador] = Regedit.fromJson(dataRegedeits[contador]);
     }
 
     //Modificamos el contrato que se tiene guardado en las sharedPreferences
-    Contract contrato = await ShPreferences.getContract();
-    contrato.listaCondiciones = condiciones;
-    ShPreferences.setContract(contrato);*/
+    User usuario = await ShPreferences.getUser();
+    usuario.listaRegistros = registros;
+    ShPreferences.setUser(usuario);
 
     return true;
   }
   return false;
+}
+
+///Nos indica si el usuario y la contraseña introducidos son correctos
+///
+///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización.
+Future<bool> crearRegistroVolumen(String id_usuario, String tipo_registro, String id_aplicacion) async
+{
+  String fecha = new DateTime.now().toString();
+
+  print(fecha);
+
+  final response = await http.post(rutaInsertarRegistro, body: {
+    "id_usuario": id_usuario,
+    "tipo_registro": tipo_registro,
+    "id_aplicacion": id_aplicacion,
+    "fecha_inicio": fecha,
+    "fecha_fin": fecha,
+  });
+
+  var dataInsert = json.decode(response.body);
+
+  var error = dataInsert.toString().indexOf('mensaje')!=-1;
+
+  if (!error)
+    return true;
+  else
+    return false;
 }

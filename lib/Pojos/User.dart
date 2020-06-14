@@ -1,8 +1,12 @@
+import 'package:PsicotecProyect/Pojos/Regedit.dart';
+
 class User
 {
   String id_usuario, email, contrasenia, nombre, apellidos, DNI, telefono;
 
   User(this.id_usuario, this.email, this.contrasenia, this.nombre, this.apellidos, this.DNI, this.telefono);
+
+  List<Regedit> listaRegistros;
 
   User.fromJson(Map<String, dynamic > json)
       : id_usuario = json['id_usuario'],

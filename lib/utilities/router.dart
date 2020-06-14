@@ -6,6 +6,7 @@ import 'package:PsicotecProyect/screens/contractPage.dart';
 import 'package:PsicotecProyect/screens/homePage.dart';
 import 'package:PsicotecProyect/screens/resultsPage.dart';
 import 'package:PsicotecProyect/screens/loginPage.dart';
+import 'package:PsicotecProyect/screens/aplicationsList.dart';
 
 class FluroRouter {
   static Router router = Router();
@@ -21,6 +22,9 @@ class FluroRouter {
 
   // Handler for Results Page
   static Handler _informationHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => ResultsPage());
+
+  // Handler for appsList
+  static Handler _aplicationsHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => ListAppsPages());
 
 
   static void setupRouter() {
@@ -60,6 +64,12 @@ class FluroRouter {
       'resultsLeft',
       handler: _informationHandler,
       transitionType: TransitionType.inFromLeft,
+    );
+
+    router.define(
+      'aplicationsRight',
+      handler: _aplicationsHandler,
+      transitionType: TransitionType.inFromRight,
     );
   }
 }

@@ -55,10 +55,10 @@ class ShPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return new Contract.fromJson(json.decode(prefs.getString(_kContract)) as Map<String, dynamic>);
   }
-  static Future<bool> setContract(value) async
+  static Future<bool> setContract(Contract value) async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(_kContract, json.encode(value));
+    return prefs.setString(_kContract, json.encode(value)) ?? null;
   }
 
 
@@ -70,17 +70,17 @@ class ShPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return new Condition.fromJson(json.decode(prefs.getString(_kCondition)) as Map<String, dynamic>);
   }
-  static Future<bool> setContractConditions(value) async
+  static Future<bool> setContractConditions(Condition value) async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.setString(_kCondition, json.encode(value));
+    return prefs.setString(_kCondition, json.encode(value)) ?? null;
   }
 
 
 
-  //TODO: Crear los getters y setters de las sharedpreferences para los registros de nuestro usuario
-  //Geter y seter del contrato guardado en las SharedPreferences
-  /*static Future<Regedit> getRegedit() async
+//TODO: Crear los getters y setters de las sharedpreferences para los registros de nuestro usuario
+//Geter y seter del contrato guardado en las SharedPreferences
+/*static Future<Regedit> getRegedit() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return new Condition.fromJson(json.decode(prefs.getString(_kCondition)) as Map<String, dynamic>);

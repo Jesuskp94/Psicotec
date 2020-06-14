@@ -1,62 +1,21 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:PsicotecProyect/utilities/constants.dart';
 import 'package:PsicotecProyect/utilities/shPreferences.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:hardware_buttons/hardware_buttons.dart';
+import 'aplicationsList.dart';
 
-StreamSubscription _volumeButtonSubscription;
 int contador = 0;
 
 // This app is a stateful, it tracks the user's current choice.
 class HomePage extends StatefulWidget {
   @override
-  _BasicAppBarSampleState createState() => _BasicAppBarSampleState();
+  _HomePage createState() => _HomePage();
 }
 
-class _BasicAppBarSampleState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePage extends State<HomePage> with WidgetsBindingObserver {
   Choice _selectedChoice = choices[0]; // The app's "state".
   AppLifecycleState _lastLifecyleState;
-
-
-  @override
-  void initState() {
-    super.initState();
-    comporbarVolumen();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-    // be sure to cancel on dispose
-    _volumeButtonSubscription?.cancel();
-  }
-
-  @override
-  void onDeactivate() {
-    super.deactivate();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    print("LifecycleWatcherState#didChangeAppLifecycleState state=${state.toString()}");
-    setState(() {
-      _lastLifecyleState = state;
-    });
-  }
-
-  void comporbarVolumen() async {
-    _volumeButtonSubscription = volumeButtonEvents.listen((VolumeButtonEvent event) {
-      contador = contador + 1;
-      print('has pulsado el volumen');
-      // do something
-      // event is either VolumeButtonEvent.VOLUME_UP or VolumeButtonEvent.VOLUME_DOWN
-    });
-  }
 
   ///Que ocurre cuando pulsamos alguno de los botones del appbar
   ///
@@ -99,7 +58,6 @@ class _BasicAppBarSampleState extends State<HomePage> with WidgetsBindingObserve
       _selectedChoice = choice;
     });
   }
-
 
 
   ///build de la pantalla principal
@@ -162,13 +120,6 @@ class _BasicAppBarSampleState extends State<HomePage> with WidgetsBindingObserve
   }
 }
 
-class TimeScreem{
-  final String dia;
-  final int minutos;
-
-  TimeScreem(this.dia, this.minutos);
-}
-
 
 class Choice {
   final String title;
@@ -186,14 +137,16 @@ const List<Choice> choices = const <Choice>[
   const Choice(title: 'Logout', icon: Icons.settings_power),
 ];
 
+
 class ChoiceCard extends StatelessWidget {
   const ChoiceCard({Key key, this.choice}) : super(key: key);
 
   final Choice choice;
 
+
+
   @override
   Widget build(BuildContext context) {
-    //print(ShPreferences.getUser('usuario'));
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -214,7 +167,6 @@ class ChoiceCard extends StatelessWidget {
                           children: <Widget>[
                             Expanded(
                               child: Text('Tiempo de actividad:',),
-
                             ),
                             Expanded(
                               child: Text(contador.toString(),),
@@ -242,17 +194,16 @@ class ChoiceCard extends StatelessWidget {
                           ],
                         ),
                         kDividers,
-                        CircularPercentIndicator(
-                          radius: 120.0,
-                          lineWidth: 5.0,
-                          percent: 0.2,
-                          center: new Text('Horas jugando'),
-                        ),
-                        CircularPercentIndicator(
-                          radius: 120.0,
-                          lineWidth: 5.0,
-                          percent: 0.8,
-                          center: new Text('Tiempo restante'),
+                        RaisedButton(
+                          onPressed: ()
+                          {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => ListAppsPages()),
+                            );
+//                            pruebaStart();
+                          },
+                          child: const Text('BotonPruebaStart', style: TextStyle(fontSize: 20)),
                         ),
                       ],
                     ),

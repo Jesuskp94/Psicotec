@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:PsicotecProyect/utilities/constants.dart';
 import 'package:PsicotecProyect/utilities/shPreferences.dart';
-import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 // This app is a stateful, it tracks the user's current choice.
@@ -134,71 +132,71 @@ class ChoiceCard extends StatelessWidget {
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  height: double.infinity,
-                  child: SingleChildScrollView(
-                    physics: AlwaysScrollableScrollPhysics(),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text('Fecha de inicio:',),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.0),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text('Fecha de finalizacion:',),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.0),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text('Logros conseguidos:',),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.0),
-                          Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Text('Sanciones recibidas:',),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.0),
+          child: Stack(
+            children: <Widget>[
+              Container(
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('Fecha de inicio:',),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30.0),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('Fecha de finalizacion:',),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30.0),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('Logros conseguidos:',),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30.0),
+                        Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Text('Sanciones recibidas:',),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30.0),
 
-                          CircularPercentIndicator(
-                            radius: 120.0,
-                            lineWidth: 5.0,
-                            percent: 0.2,
-                            center: new Text('Horas jugando'),
-                          ),
-                          CircularPercentIndicator(
-                            radius: 120.0,
-                            lineWidth: 5.0,
-                            percent: 0.8,
-                            center: new Text('Tiempo restante'),
-                          ),
-                        ],
-                      ),
+                        CircularPercentIndicator(
+                          radius: 120.0,
+                          lineWidth: 5.0,
+                          percent: 0.2,
+                          center: new Text('Horas jugando'),
+                        ),
+                        CircularPercentIndicator(
+                          radius: 120.0,
+                          lineWidth: 5.0,
+                          percent: 0.8,
+                          center: new Text('Tiempo restante'),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
+      ),
 
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
