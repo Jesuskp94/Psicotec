@@ -29,19 +29,29 @@ class _LoginPageState extends State<LoginPage> {
 
     if (usuario != null)
     {
-      //Solicitamos el reto de datos del usuario (contrato y condiciones)
-      Contract contrato = await solicitarContrato(usuario.id_usuario);
-      bool tieneCondiciones = await solicitarCondiciones(contrato.id_contrato);
-
-      if(tieneCondiciones)
+      if(usuario.tipo_usuario.indexOf("admin")!=-1)
       {
-        ///Nos movemos a la pantalla del home
+        //Es un admin por lo que se le llevará a la pantalla correspondiente
         Navigator.pushReplacementNamed(context, 'homeRight');
       }
       else
       {
-        Navigator.pushReplacementNamed(context, 'homeRight');
-        //TODO: crear pantalla que permita registrar las condiciones
+        //Es un usuario por lo que se le llevará a la pantalla correspondiente
+
+        //Solicitamos el reto de datos del usuario (contrato y condiciones)
+        Contract contrato = await solicitarContrato(usuario.id_usuario);
+        bool tieneCondiciones = await solicitarCondiciones(contrato.id_contrato);
+
+        if(tieneCondiciones)
+        {
+          ///Nos movemos a la pantalla del home del usuario
+          Navigator.pushReplacementNamed(context, 'homeRight');
+        }
+        else
+        {
+          Navigator.pushReplacementNamed(context, 'homeRight');
+          //TODO: crear pantalla que permita registrar las condiciones por pirmera vez.
+        }
       }
     }
     else

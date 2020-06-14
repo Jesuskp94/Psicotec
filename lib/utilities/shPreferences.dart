@@ -14,6 +14,8 @@ class ShPreferences {
   static final String _kCondition = 'condicion';
   static final String _kRegedit = 'registro';
 
+  static User usuario;
+
 
   //Geter y seter para saber si hay un usuario guardado o no
   static Future<bool> getLogin() async
@@ -38,6 +40,9 @@ class ShPreferences {
   static Future<User> getUser() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getString(_kUser).indexOf("null") != -1){return null;}
+
     return new User.fromJson(json.decode(prefs.getString(_kUser)) as Map<String, dynamic>);
   }
   static Future<bool> setUser(User value) async
@@ -53,6 +58,9 @@ class ShPreferences {
   static Future<Contract> getContract() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getString(_kContract).indexOf("null") != -1){return null;}
+
     return new Contract.fromJson(json.decode(prefs.getString(_kContract)) as Map<String, dynamic>);
   }
   static Future<bool> setContract(Contract value) async
@@ -68,6 +76,9 @@ class ShPreferences {
   static Future<Condition> getContractConditions() async
   {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    if(prefs.getString(_kCondition).indexOf("null") != -1){return null;}
+
     return new Condition.fromJson(json.decode(prefs.getString(_kCondition)) as Map<String, dynamic>);
   }
   static Future<bool> setContractConditions(Condition value) async

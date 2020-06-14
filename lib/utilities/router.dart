@@ -6,10 +6,15 @@ import 'package:PsicotecProyect/screens/contractPage.dart';
 import 'package:PsicotecProyect/screens/homePage.dart';
 import 'package:PsicotecProyect/screens/resultsPage.dart';
 import 'package:PsicotecProyect/screens/loginPage.dart';
+import 'package:PsicotecProyect/screens/userPage.dart';
 import 'package:PsicotecProyect/screens/aplicationsList.dart';
+import '../main.dart';
 
 class FluroRouter {
   static Router router = Router();
+
+  // Handler for the main
+  static Handler _mainHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => MyApp());
 
   // Handler for Login Page
   static Handler _loginHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => LoginPage());
@@ -23,11 +28,19 @@ class FluroRouter {
   // Handler for Results Page
   static Handler _informationHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => ResultsPage());
 
+  // Handler for User Page
+  static Handler _userPageHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => UserPage());
+
   // Handler for appsList
   static Handler _aplicationsHandler = Handler(handlerFunc: (BuildContext context, Map<String, dynamic> params) => ListAppsPages());
 
 
   static void setupRouter() {
+    router.define(
+      'main',
+      handler: _mainHandler,
+    );
+
     router.define(
       'login',
       handler: _loginHandler,
@@ -63,6 +76,17 @@ class FluroRouter {
     router.define(
       'resultsLeft',
       handler: _informationHandler,
+      transitionType: TransitionType.inFromLeft,
+    );
+
+    router.define(
+      'userPageRight',
+      handler: _userPageHandler,
+      transitionType: TransitionType.inFromRight,
+    );
+    router.define(
+      'userPageLeft',
+      handler: _userPageHandler,
       transitionType: TransitionType.inFromLeft,
     );
 

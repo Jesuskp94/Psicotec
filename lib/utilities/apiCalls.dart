@@ -34,6 +34,7 @@ Future<User> solicitarUsuario(String email, String contrasenia) async
     try
     {
       User user = User.fromJson(dataUser);
+      ShPreferences.usuario = user;
       await ShPreferences.setUser(user);
 
       return user;
@@ -147,18 +148,17 @@ Future<bool> solicitarRegistros(String id_usuario) async
 ///Nos indica si el usuario y la contraseña introducidos son correctos
 ///
 ///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización.
-Future<bool> crearRegistroVolumen(String id_usuario, String tipo_registro, String id_aplicacion) async
+Future<bool> crearRegistro(String tipo_registro, String id_aplicacion, String fecha_inicio, String fecha_fin) async
 {
-  String fecha = new DateTime.now().toString();
-
-  print(fecha);
+  User user = await ShPreferences.getUser();
+  if (user == null){return false;}
 
   final response = await http.post(rutaInsertarRegistro, body: {
-    "id_usuario": id_usuario,
+    "id_usuario": user.id_usuario,
     "tipo_registro": tipo_registro,
     "id_aplicacion": id_aplicacion,
-    "fecha_inicio": fecha,
-    "fecha_fin": fecha,
+    "fecha_inicio": fecha_inicio,
+    "fecha_fin": fecha_fin,
   });
 
   var dataInsert = json.decode(response.body);

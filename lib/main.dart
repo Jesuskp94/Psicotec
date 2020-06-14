@@ -37,11 +37,10 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-
-    if(ShPreferences.getUser() != null)
-    {
+//    if(ShPreferences.getUser() != null)
+//    {
       eventoBotonVolumen();
-    }
+//    }
   }
 
   @override

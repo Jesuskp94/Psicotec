@@ -25,6 +25,10 @@ class _BasicAppBarSampleState extends State<ResultsPage> {
       case 'Results':
         print('has pulsado en el botón de los resultados');
         break;
+      case 'User':
+        print('has pulsado en el botón de la configuración del usuario');
+        Navigator.pushReplacementNamed(context, 'userPageRight');
+        break;
       case 'About':
         print('has pulsado en el botón de la ayuda');
         showAboutDialog(
@@ -40,6 +44,9 @@ class _BasicAppBarSampleState extends State<ResultsPage> {
         break;
       case 'Logout':
         ShPreferences.setLogin(null);
+        ShPreferences.setUser(null);
+        ShPreferences.setContract(null);
+        ShPreferences.setContractConditions(null);
         print('has pulsado en el botón de desconectarte');
         Navigator.pushReplacementNamed(context, 'login');
         break;
@@ -56,7 +63,7 @@ class _BasicAppBarSampleState extends State<ResultsPage> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('TICandBOT'),
+          title: const Text('Psicotec'),
           backgroundColor: Colors.green,
           actions: <Widget>[
             // action button
@@ -79,11 +86,17 @@ class _BasicAppBarSampleState extends State<ResultsPage> {
                 _select(choices[2]);
               },
             ),
+            IconButton(
+              icon: Icon(choices[3].icon),
+              onPressed: () {
+                _select(choices[3]);
+              },
+            ),
             // overflow menu
             PopupMenuButton<Choice>(
               onSelected: _select,
               itemBuilder: (BuildContext context) {
-                return choices.skip(3).map((Choice choice) {
+                return choices.skip(4).map((Choice choice) {
                   return PopupMenuItem<Choice>(
                     value: choice,
                     child: Text(choice.title),
@@ -113,6 +126,7 @@ const List<Choice> choices = const <Choice>[
   const Choice(title: 'Home', icon: Icons.home),
   const Choice(title: 'Contract', icon: Icons.assignment),
   const Choice(title: 'Results', icon: Icons.assessment),
+  const Choice(title: 'User', icon: Icons.person),
   const Choice(title: 'About', icon: Icons.help),
   const Choice(title: 'Logout', icon: Icons.settings_power),
 ];

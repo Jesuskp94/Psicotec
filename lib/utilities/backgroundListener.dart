@@ -10,24 +10,25 @@ import 'package:background_fetch/background_fetch.dart';
 StreamSubscription<HardwareButtons.VolumeButtonEvent> _volumeButtonSubscription;
 StreamSubscription<HardwareButtons.HomeButtonEvent> _homeButtonSubscription;
 StreamSubscription<HardwareButtons.LockButtonEvent> _lockButtonSubscription;
+String fecha;
 
 
 //Metodos encargados de registrar las pulsaciones de los diferentes botones físicos del dispositivo
 void eventoBotonVolumen() async
 {
-  User user = await ShPreferences.getUser();
 
-  _volumeButtonSubscription = HardwareButtons.volumeButtonEvents.listen((event)
+
+  _volumeButtonSubscription = HardwareButtons.volumeButtonEvents.listen((event) async
   {
-    print(event.toString());
+    fecha = new DateTime.now().toString();
 
     if(event.toString().indexOf("VolumeButtonEvent.VOLUME_UP") == -1)
     {
-      crearRegistroVolumen(user.id_usuario, "F/VolumenUp", 'null');
+      crearRegistro("F/VolumenUp", 'null', fecha, fecha);
     }
     else
     {
-      crearRegistroVolumen(user.id_usuario, "F/VolumenDown", 'null');
+      crearRegistro("F/VolumenDown", 'null', fecha, fecha);
     }
   });
 }

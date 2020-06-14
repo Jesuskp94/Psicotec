@@ -15,7 +15,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> with WidgetsBindingObserver {
   Choice _selectedChoice = choices[0]; // The app's "state".
-  AppLifecycleState _lastLifecyleState;
+
+//  AppLifecycleState _lastLifecyleState;
 
   ///Que ocurre cuando pulsamos alguno de los botones del appbar
   ///
@@ -34,6 +35,10 @@ class _HomePage extends State<HomePage> with WidgetsBindingObserver {
         print('has pulsado en el botón de los resultados');
         Navigator.pushReplacementNamed(context, 'resultsRight');
         break;
+      case 'User':
+        print('has pulsado en el botón de la configuración del usuario');
+        Navigator.pushReplacementNamed(context, 'userPageRight');
+        break;
       case 'About':
         print('has pulsado en el botón de la ayuda');
         showAboutDialog(
@@ -49,6 +54,9 @@ class _HomePage extends State<HomePage> with WidgetsBindingObserver {
         break;
       case 'Logout':
         ShPreferences.setLogin(null);
+        ShPreferences.setUser(null);
+        ShPreferences.setContract(null);
+        ShPreferences.setContractConditions(null);
         print('has pulsado en el botón de desconectarte');
         Navigator.pushReplacementNamed(context, 'login');
         break;
