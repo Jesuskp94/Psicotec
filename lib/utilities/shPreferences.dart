@@ -14,7 +14,8 @@ class ShPreferences {
   static final String _kCondition = 'condicion';
   static final String _kRegedit = 'registro';
 
-  static User usuario;
+  static User usuario = null;
+  static Contract contrato = null;
 
 
   //Geter y seter para saber si hay un usuario guardado o no
@@ -32,10 +33,6 @@ class ShPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setBool(_kLogin, value);
   }
-
-
-
-
   //Geter y seter del usuario guardado en las SharedPreferences
   static Future<User> getUser() async
   {
@@ -50,10 +47,6 @@ class ShPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(_kUser, json.encode(value)) ?? null;
   }
-
-
-
-
   //Geter y seter del contrato guardado en las SharedPreferences
   static Future<Contract> getContract() async
   {
@@ -68,9 +61,6 @@ class ShPreferences {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.setString(_kContract, json.encode(value)) ?? null;
   }
-
-
-
 
   //Geter y seter del contrato guardado en las SharedPreferences
   static Future<Condition> getContractConditions() async

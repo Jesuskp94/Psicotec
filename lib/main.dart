@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:PsicotecProyect/Pojos/User.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 
 import 'package:PsicotecProyect/utilities/backgroundListener.dart';
-import 'package:flutter/material.dart';
 import 'package:PsicotecProyect/utilities/shPreferences.dart';
 import 'package:PsicotecProyect/utilities/router.dart';
-import 'package:flutter/services.dart';
+
 
 String ruta = 'login';
 
@@ -17,9 +19,22 @@ void main() async {
   //Comprobar si hay un usuario guardado en las preferencias para evitar mostrar el login otra vez
   bool usuarioGuardado = await ShPreferences.getLogin();
 
-  if (usuarioGuardado){
-    ruta = 'homeRight';
-  } else {
+
+  if (usuarioGuardado)
+  {
+    User usuario = await ShPreferences.getUser();
+
+    if(usuario.tipo_usuario.indexOf("admin")!=-1)
+    {
+      ruta = 'homePageAdminRight';
+    }
+    else
+    {
+      ruta = 'homePageUserRight';
+    }
+  }
+  else
+  {
     ruta = 'login';
   }
 
@@ -90,6 +105,7 @@ class _MyApp extends State<MyApp> with WidgetsBindingObserver {
     );
   }
 }
+
 
 class AppRetainWidget extends StatelessWidget {
   const AppRetainWidget({Key key, this.child}) : super(key: key);

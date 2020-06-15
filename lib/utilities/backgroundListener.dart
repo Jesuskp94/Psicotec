@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'apiCalls.dart';
-import 'package:PsicotecProyect/Pojos/User.dart';
-import 'package:PsicotecProyect/utilities/shPreferences.dart';
 import 'package:hardware_buttons/hardware_buttons.dart' as HardwareButtons;
 import 'package:background_fetch/background_fetch.dart';
 
@@ -16,8 +14,6 @@ String fecha;
 //Metodos encargados de registrar las pulsaciones de los diferentes botones físicos del dispositivo
 void eventoBotonVolumen() async
 {
-
-
   _volumeButtonSubscription = HardwareButtons.volumeButtonEvents.listen((event) async
   {
     fecha = new DateTime.now().toString();

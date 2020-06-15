@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 
-
 final rutaLogin = "http://192.168.1.45/api/apiUsuario/login.php";
 final rutaContrato = "http://192.168.1.45/api/apiContrato/contrato.php";
 final rutaCondicion = "http://192.168.1.45/api/apiContrato/condiciones_contrato.php";
@@ -15,39 +14,49 @@ final rutaRegistro = "http://192.168.1.45/api/apiContrato/condiciones_contrato.p
 final rutaInsertarRegistro = "http://192.168.1.45/api/apiRegistros/insertarRegistro.php";
 
 
-///Nos indica si el usuario y la contraseña introducidos son correctos
+///Nos indica si el usuario y la contraseña introducidos son correctos y de ser así lo guarda en las SharedPreferences
+///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización si se quiere el dato al momento
 ///
-///Tener encuenta que es un proceso asyncrono por lo que requiere de un await que espere su finalización.
 Future<User> solicitarUsuario(String email, String contrasenia) async
 {
-  final response = await http.post(rutaLogin, body: {
-    "email": email,
-    "contrasenia": contrasenia,
-  });
-
-  var dataUser = json.decode(response.body) as Map<String, dynamic>;
-  var error = dataUser.containsKey('mensaje');
-
-  if (!error)
+  try
   {
-    ///Guardamos el usuario en las preferencias para un posterior uso.
-    try
-    {
-      User user = User.fromJson(dataUser);
-      ShPreferences.usuario = user;
-      await ShPreferences.setUser(user);
+    final response = await http.post(rutaLogin, body: {
+      "email": email,
+      "contrasenia": contrasenia,
+    });
 
-      return user;
-    }
-    catch (Excepetion)
+    var dataUser = json.decode(response.body) as Map<String, dynamic>;
+    var error = dataUser.containsKey('mensaje');
+
+    if (!error)
     {
-      print('exception user error');
-      return null;
+      ///Guardamos el usuario en las preferencias para un posterior uso.
+      try
+      {
+        User user = User.fromJson(dataUser);
+        ShPreferences.usuario = user;
+
+        print(ShPreferences.usuario.tipo_usuario);
+
+        await ShPreferences.setUser(user);
+
+        return user;
+      }
+      catch (Excepetion)
+      {
+        print('exception user error');
+        return null;
+      }
     }
   }
+  catch(Excepetion)
+  {
+    print('No se puede conectar al servidor');
+  }
+
   return null;
 }
-
 
 ///Nos indica si el usuario y la contraseña introducidos son correctos
 ///
@@ -66,6 +75,7 @@ Future<Contract> solicitarContrato(String idUsuario) async
     try
     {
       Contract contrato = Contract.fromJson(dataContract);
+      ShPreferences.contrato = contrato;
       ShPreferences.setContract(contrato);
 
       return contrato;
@@ -106,6 +116,7 @@ Future<bool> solicitarCondiciones(String id_contrato) async
     Contract contrato = await ShPreferences.getContract();
     contrato.listaCondiciones = condiciones;
     ShPreferences.setContract(contrato);
+    ShPreferences.contrato = contrato;
 
     return true;
   }
@@ -139,6 +150,7 @@ Future<bool> solicitarRegistros(String id_usuario) async
     User usuario = await ShPreferences.getUser();
     usuario.listaRegistros = registros;
     ShPreferences.setUser(usuario);
+    ShPreferences.usuario = usuario;
 
     return true;
   }

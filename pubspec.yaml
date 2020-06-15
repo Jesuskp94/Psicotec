@@ -20,6 +20,8 @@ dependencies:
   hardware_buttons: ^1.0.0
   background_fetch: '^0.5.1'
   device_apps: ^1.0.9
+  dcdg: ^2.0.1
+
 
 
 dev_dependencies:
